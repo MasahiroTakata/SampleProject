@@ -1,20 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
+import styles from './styles/AppStyles';
 
 export default function App() {
+	const [task, setTask] = useState(''); // テキストボックス用
+  const [tasks, setTasks] = useState([]); // 入力したタスクを保存する用
+  const addTask = () => {
+    if (task.length > 0) {
+      setTasks([...tasks, { key: Math.random().toString(), value: task }]);
+      setTask(''); // 入力値を空にする
+    }
+  };
   return (
     <View style={styles.container}>
-      <Text>Hello! world!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Todo App</Text>
+			<TextInput
+	      placeholder="Add new task"
+	      value={task}
+	      onChangeText={setTask}
+	      style={styles.input}
+			/>
+			<Button title="Add Task" onPress={addTask} />
+			<FlatList
+	      data={tasks}
+	      renderItem={({ item }) => <Text style={styles.task}>{item.value}</Text>}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
