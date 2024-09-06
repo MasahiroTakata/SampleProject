@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import styles from './styles/AppStyles';
 
 export default function App() {
@@ -21,7 +21,15 @@ export default function App() {
 	      onChangeText={setTask}
 	      style={styles.input}
 			/>
-			<TouchableOpacity style={styles.button} onPress={addTask} title="Add Task">
+			<TouchableOpacity
+				style={styles.button}
+				onPress={addTask}
+				title="Add Task"
+				accessible={true}
+				accessibilityLabel="送信ボタン"
+				accessibilityHint="このボタンを押すとフォームが送信されます"
+				accessibilityRole="button"
+			>
 				<Text style={styles.buttonText}>Add Task</Text>
 			</TouchableOpacity>
 			<FlatList
